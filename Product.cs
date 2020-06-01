@@ -12,5 +12,10 @@ namespace Vending
         {
             Console.WriteLine($"{Name} (ID: {Id}) costs ${Price}");
         }
+
+        internal object OrderBy(Func<object, object> p)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

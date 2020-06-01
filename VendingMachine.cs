@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Vending
 {
@@ -19,37 +20,57 @@ namespace Vending
         // Add a new product to the Vending Machine (For stocking machine)
         public void AddProduct(Product newProduct)
         {
-            throw new NotImplementedException();
+            _products.Add(newProduct);
+            // throw new NotImplementedException();
         }
 
         // Remove a product from the Vending Machine (for purchasing a product)
         public void RemoveProduct(Product productToRemove)
         {
-            throw new NotImplementedException();
+            //     throw new NotImplementedException();
+            _products.Remove(productToRemove);
         }
 
         // Get all products ordered by price (lowest on top)
         public List<Product> GetAll()
         {
-            throw new NotImplementedException();
+            var productsInOrder = _products.OrderBy(p => p.Price);
+            return productsInOrder.ToList();
+           
         }
 
         // Find a product by name. Results should be ordered by name)
         public List<Product> SearchByName(string nameCriteria)
         {
-            throw new NotImplementedException();
+            IEnumerable<Product> searchByNameProduct = _products.Where(p => p.Name.Contains(nameCriteria));
+            //    var searchResultsOrderedByName = searchByNameProduct.OrderBy(p => p.Name);
+            return searchByNameProduct.OrderBy(n => n.Name).ToList();
+
         }
 
         // Find a product between a range or prices. Results should be ordered by price
         public List<Product> SearchByPrice(double minPrice, double maxPrice)
         {
-            throw new NotImplementedException();
+            var priceRange = _products.Where(p => p.Price >= minPrice && p.Price <= maxPrice);
+
+            return priceRange.OrderBy(p => p.Price).ToList();
+
+           
         }
 
         // Return a product with a given ID. Return null if not found.
         public Product GetById(int id)
         {
-            throw new NotImplementedException();
+            var prodId = _products.Find(p => p.Id == id);
+            if (prodId != null)
+            {
+                return prodId;
+            }
+            else
+            {
+                return null;
+            }
+    
         }
 
         // Return the cheapest product or null if there are no products
